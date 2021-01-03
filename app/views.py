@@ -3,10 +3,10 @@ from django.shortcuts import redirect, render
 from django.views import generic
 from .forms import BS4ScheduleForm, SimpleScheduleForm
 from .models import Schedule
-from . import mixins
+from . import appmodels
 
 
-class MonthCalendar(mixins.MonthCalendarMixin, generic.TemplateView):
+class MonthCalendar(appmodels.MonthCalendarMixin, generic.TemplateView):
     """月間カレンダーを表示するビュー"""
     template_name = 'app/month.html'
 
@@ -16,32 +16,7 @@ class MonthCalendar(mixins.MonthCalendarMixin, generic.TemplateView):
         context.update(calendar_context)
         return context
 
-
-class WeekCalendar(mixins.WeekCalendarMixin, generic.TemplateView):
-    """週間カレンダーを表示するビュー"""
-    template_name = 'app/week.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        calendar_context = self.get_week_calendar()
-        context.update(calendar_context)
-        return context
-
-
-class WeekWithScheduleCalendar(mixins.WeekWithScheduleMixin, generic.TemplateView):
-    """スケジュール付きの週間カレンダーを表示するビュー"""
-    template_name = 'app/week_with_schedule.html'
-    model = Schedule
-    date_field = 'date'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        calendar_context = self.get_week_calendar()
-        context.update(calendar_context)
-        return context
-
-
-class MonthWithScheduleCalendar(mixins.MonthWithScheduleMixin, generic.TemplateView):
+class MonthWithScheduleCalendar(appmodels.MonthWithScheduleMixin, generic.TemplateView):
     """スケジュール付きの月間カレンダーを表示するビュー"""
     template_name = 'app/month_with_schedule.html'
     model = Schedule
@@ -54,7 +29,7 @@ class MonthWithScheduleCalendar(mixins.MonthWithScheduleMixin, generic.TemplateV
         return context
 
 
-class MyCalendar(mixins.MonthCalendarMixin, mixins.WeekWithScheduleMixin, generic.CreateView):
+class MyCalendar(appmodels.MonthCalendarMixin, appmodels.WeekWithScheduleMixin, generic.CreateView):
     """月間カレンダー、週間カレンダー、スケジュール登録画面のある欲張りビュー"""
     template_name = 'app/mycalendar.html'
     model = Schedule
@@ -83,7 +58,7 @@ class MyCalendar(mixins.MonthCalendarMixin, mixins.WeekWithScheduleMixin, generi
         return redirect('app:mycalendar', year=date.year, month=date.month, day=date.day)
 
 
-class MonthWithFormsCalendar(mixins.MonthWithFormsMixin, generic.View):
+class MonthWithFormsCalendar(appmodels.MonthWithFormsMixin, generic.View):
     """フォーム付きの月間カレンダーを表示するビュー"""
     template_name = 'app/month_with_forms.html'
     model = Schedule
