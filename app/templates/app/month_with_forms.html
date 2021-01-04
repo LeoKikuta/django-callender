@@ -26,9 +26,9 @@
                 <tr>
                     {% for day, forms in week_day_forms.items %}
                         {% if now == day %}
-                            <td class="table-success">
+                            <td class="table-success" id="day">
                                 {% else %}
-                            <td>
+                            <td id="day">
                         {% endif %}
 
                     <div>

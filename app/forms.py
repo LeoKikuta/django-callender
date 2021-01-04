@@ -3,7 +3,6 @@ from .models import Schedule
 
 
 class BS4ScheduleForm(forms.ModelForm):
-    """Bootstrapに対応するためのModelForm"""
 
     class Meta:
         model = Schedule
@@ -34,7 +33,6 @@ class BS4ScheduleForm(forms.ModelForm):
 
 
 class SimpleScheduleForm(forms.ModelForm):
-    """シンプルなスケジュール登録用フォーム"""
 
     class Meta:
         model = Schedule
