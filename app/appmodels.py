@@ -74,7 +74,6 @@ class WeekCalendarMixin(BaseCalendarMixin):
                 return week
 
     def get_week_calendar(self):
-        """週間カレンダー情報の入った辞書を返す"""
         self.setup_calendar()
         days = self.get_week_days()
         first = days[0]
