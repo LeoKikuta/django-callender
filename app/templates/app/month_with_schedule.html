@@ -32,9 +32,9 @@
                 <tr>
                     {% for day, schedules in week_day_schedles.items %}
                         {% if now == day %}
-                            <td class="table-success">
+                            <td class="table-success" id="date-table">
                                 {% else %}
-                            <td>
+                            <td id="date-table">
                         {% endif %}
 
                     <div>
@@ -55,4 +55,11 @@
             </tbody>
         </table>
     </div>
+
+<script>
+$('#date-table').mouseover(function () {
+	$('#date-table').css('background-color','orange');
+});
+
+</script>
 {% endblock %}
