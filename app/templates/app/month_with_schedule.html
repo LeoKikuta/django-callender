@@ -32,7 +32,7 @@
                 <tr>
                     {% for day, schedules in week_day_schedles.items %}
                         {% if now == day %}
-                            <td class="table-success" id="date-table">
+                            <td class="table-success" id="date-now">
                                 {% else %}
                             <td id="date-table">
                         {% endif %}
@@ -57,9 +57,34 @@
     </div>
 
 <script>
-$('#date-table').mouseover(function () {
-	$('#date-table').css('background-color','orange');
+$(function(){
+ tr_default(".table");
+ $(".table tr td:not(.table-success)").click(function(){
+  tr_default(".table");
+  tr_click($(this));
+ });
 });
 
+function tr_default(tblID){
+ let vTR = tblID + " tr" + " td:not(.table-success)";
+ $(vTR).css("background-color","#ffffff");
+ $(vTR).mouseover(function(){
+ $(this).css("background-color","#FFD700") .css("cursor","pointer")
+ //$(today).css()
+ });
+ $(vTR).mouseout(function(){
+  $(this).css("background-color","#ffffff") .css("cursor","normal")
+ });
+}
+
+function tr_click(trID){
+ trID.css("background-color","#00FFFF");
+ trID.mouseover(function(){
+  $(this).css("background-color","#CCFFCC") .css("cursor","pointer")
+ });
+ trID.mouseout(function(){
+  $(this).css("background-color","#00FFFF") .css("cursor","normal")
+ });
+}
 </script>
 {% endblock %}
